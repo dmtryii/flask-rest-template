@@ -1,6 +1,6 @@
 
 from flask import jsonify
-from app.users import bp
+from app.controllers.users import bp
 from app.exceptions.user_exception import InvalidUsage
 
 @bp.errorhandler(InvalidUsage)
