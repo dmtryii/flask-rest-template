@@ -33,3 +33,8 @@ class InvalidAgeException(InvalidUsage):
 class UsernameAllreadyPresentException(InvalidUsage):
     def __init__(self, message='User with that username is already present', status_code=None, payload=None):
         super().__init__(message, status_code, payload)
+        
+        
+class InvalidEmailException(InvalidUsage):
+    def __init__(self, message='Invalid email address', status_code=None, payload=None):
+        super().__init__(message, status_code, payload)

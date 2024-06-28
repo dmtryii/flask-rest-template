@@ -6,9 +6,11 @@ from flask_jwt_extended import create_access_token
 from app.exceptions.auth_exception import InvalidCredentialsException
 from app.extensions import db
 from app.exceptions.user_exception import (
-    EmptyFieldException, 
+    EmptyFieldException,
+    InvalidEmailException, 
     PasswordTooShortException, 
     UsernameAllreadyPresentException)
+from app.helpers.validation import validate_email
 from app.models.users import BaseUser, Gender
 from app.services.users_services import check_min_age
 
@@ -38,6 +40,9 @@ def singup(username: str, password: str, email: str,
 
     if not first_name or not last_name:
         raise EmptyFieldException(message='First name and last name cannot be empty')
+    
+    if not validate_email(email):
+        raise InvalidEmailException()
     
     user = BaseUser.query.filter_by(username=username).first()
     
