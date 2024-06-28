@@ -7,9 +7,9 @@ from app.extensions import db, bcrypt
 
 
 class Gender(Enum):
-    MALE = 'Male'
-    FEMALE = 'Female'
-    OTHER = 'Other'
+    MALE = 'MALE'
+    FEMALE = 'FEMALE'
+    OTHER = 'OTHER'
 
     def __str__(self):
         return self.value

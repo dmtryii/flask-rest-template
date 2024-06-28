@@ -12,7 +12,7 @@ def get_users():
 
 
 @bp.route('/', methods=['POST'])
-def create_contact():    
+def create_user():    
     new_user = users_services.create(
         username=request.json.get('username'),
         first_name=request.json.get('firstName'),
@@ -24,34 +24,3 @@ def create_contact():
     )
     
     return jsonify({'user': new_user.to_dict()}), 201
-
-
-# @app.route('/contact/<int:id>', methods=['PATCH'])
-# def update_contact(id):
-#     contact = Contact.query.get(id)
-    
-#     if not contact:
-#         return jsonify({'message': 'User not found'}), 404
-    
-#     data = request.json
-#     contact.first_name = data.get('firstName', contact.first_name)
-#     contact.last_name = data.get('lastName', contact.last_name)
-#     contact.email = data.get('email', contact.email)
-    
-#     db.session.commit()
-    
-#     json_contact = contact.to_json()
-#     return jsonify({'contact': json_contact}), 200
-    
-
-# @app.route('/contact/<int:id>', methods=['DELETE'])
-# def delete_contact(id):
-#     contact = Contact.query.get(id)
-    
-#     if not contact:
-#         return jsonify({'message': 'User not found'}), 404
-    
-#     db.session.delete(contact)
-#     db.session.commit()
-    
-#     return jsonify({'message': 'User deleted'}), 204
