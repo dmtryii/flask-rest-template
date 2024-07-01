@@ -11,7 +11,7 @@ from app.exceptions.user_exception import (
     PasswordTooShortException, 
     UsernameAllreadyPresentException)
 from app.helpers.validation import validate_email
-from app.models.users import BaseUser, Gender
+from app.models.users import BaseUser, Gender, Role
 from app.services.users_services import check_min_age
 
 
@@ -61,9 +61,20 @@ def singup(username: str, password: str, email: str,
         gender=gender
     )
     
+    __set_default_role(new_user)
+    
     new_user.set_password(password)
         
     db.session.add(new_user)
     db.session.commit()
 
     return create_access_token(identity=new_user.id)
+
+
+def __set_default_role(user: BaseUser) -> None:
+    role = Role.query.filter_by(name='default').first()
+
+    if not role:
+        role = Role(name='default')
+        
+    user.roles.append(role)
